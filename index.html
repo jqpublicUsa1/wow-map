@@ -9,15 +9,18 @@
   h1{margin:0;padding:14px;background:#111;color:#fff;text-align:center}
   .map{max-width:1200px;margin:12px auto;background:#fff;padding:10px;border-radius:8px}
   svg{width:100%;height:auto;display:block}
-  .state-shape{stroke:#fff;stroke-width:1;cursor:pointer}
-  .state-shape:hover{filter:brightness(1.08)}
+  .state{stroke:#fff;stroke-width:1;cursor:pointer}
+  .state:hover{filter:brightness(1.08)}
+  .note{text-align:center;color:#555;font-size:13px;margin:10px 0 18px}
 </style>
 </head>
 <body>
 <h1>DHS “Worst of the Worst” – USA Map (2024)</h1>
 <div class="map" id="map"></div>
+<div class="note">Tap a state to open the official DHS WoW page filtered by that state (opens a new tab).</div>
 
 <script>
+/* ====== Static 2024 coloring (edit if you want different) ====== */
 const RED = new Set([
   "AL","AK","AR","FL","ID","IN","IA","KS","KY","LA","MO","MS","MT","ND",
   "NE","OH","OK","SC","SD","TN","TX","UT","WV","WY"
@@ -28,7 +31,8 @@ const BLUE = new Set([
   "NH","NJ","NM","NY","NC","OR","PA","RI","VT","VA","WA","WI","DC"
 ]);
 
-const STATE_NAME = {
+/* ====== Canonical names ====== */
+const CODE_TO_NAME = {
   AL:"Alabama", AK:"Alaska", AZ:"Arizona", AR:"Arkansas", CA:"California",
   CO:"Colorado", CT:"Connecticut", DE:"Delaware", FL:"Florida", GA:"Georgia",
   HI:"Hawaii", ID:"Idaho", IL:"Illinois", IN:"Indiana", IA:"Iowa",
@@ -42,40 +46,110 @@ const STATE_NAME = {
   DC:"District of Columbia"
 };
 
+const NAME_TO_CODE = Object.fromEntries(
+  Object.entries(CODE_TO_NAME).map(([k,v]) => [v.toLowerCase(), k])
+);
+
 const DHS_BASE =
   "https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=";
 
 function colorFor(code){
   if (RED.has(code)) return "#b22234";     // Republican red
   if (BLUE.has(code)) return "#3c3b6e";    // Democrat blue
-  return "#d0d0d0";                        // neutral
+  return "#d0d0d0";                        // neutral gray
 }
 
-fetch("./us-states.svg")
+/* Normalize SimpleMaps IDs like:
+   "Texas", "TEXAS", "Texas_State", "new-york", "DistrictOfColumbia", "DC"
+*/
+function normalizeIdToName(raw){
+  if(!raw) return "";
+  let s = raw.trim();
+
+  // Convert camelCase -> spaces: DistrictOfColumbia -> District Of Columbia
+  s = s.replace(/([a-z])([A-Z])/g, "$1 $2");
+
+  // Replace separators with spaces
+  s = s.replace(/[_\-]+/g, " ");
+
+  // Collapse spaces
+  s = s.replace(/\s+/g, " ").trim();
+
+  return s;
+}
+
+function resolveState(rawId){
+  const id = (rawId || "").trim();
+  const up = id.toUpperCase();
+
+  // 1) If already a 2-letter code
+  if (CODE_TO_NAME[up]) {
+    return { code: up, name: CODE_TO_NAME[up] };
+  }
+
+  // 2) Normalize to a name
+  const normName = normalizeIdToName(id);
+
+  // 3) Try direct lowercase match
+  const code = NAME_TO_CODE[normName.toLowerCase()];
+  if (code) return { code, name: CODE_TO_NAME[code] };
+
+  // 4) Some SimpleMaps files use abbreviations like "D.C." or "Washington DC"
+  const alt = normName.toLowerCase()
+    .replace(/\./g,"")
+    .replace("washington dc","district of columbia")
+    .replace("dc","district of columbia");
+
+  const code2 = NAME_TO_CODE[alt];
+  if (code2) return { code: code2, name: CODE_TO_NAME[code2] };
+
+  return null;
+}
+
+fetch("./us-states.svg", { cache: "no-store" })
   .then(r => r.text())
   .then(svgText => {
     document.getElementById("map").innerHTML = svgText;
 
-    // Try common state selectors: paths, polygons, etc.
     const svg = document.querySelector("#map svg");
+    if(!svg){
+      document.getElementById("map").innerHTML =
+        "<p style='padding:12px;color:#b00'>SVG did not load. Confirm <b>us-states.svg</b> is in the repo root.</p>";
+      return;
+    }
+
+    // Grab any shapes with an id (SimpleMaps uses paths/polygons/groups)
     const elems = svg.querySelectorAll("[id]");
 
+    let wired = 0;
+
     elems.forEach(el => {
-      const code = (el.id || "").toUpperCase().trim();
-      if (!STATE_NAME[code]) return;
+      const st = resolveState(el.id);
+      if (!st) return;
 
-      el.classList.add("state-shape");
-      el.style.fill = colorFor(code);
+      // Color
+      el.classList.add("state");
+      el.style.fill = colorFor(st.code);
 
-      el.addEventListener("click", () => {
-        const stateName = STATE_NAME[code];
-        window.open(DHS_BASE + encodeURIComponent(stateName), "_blank", "noopener");
+      // Click => DHS (uses full name)
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.open(DHS_BASE + encodeURIComponent(st.name), "_blank", "noopener");
       });
+
+      wired++;
     });
+
+    // If nothing got wired, the SVG IDs are unusual—still fixable.
+    if (wired < 20) {
+      console.log("Not enough states detected. Sample IDs:", Array.from(elems).slice(0,20).map(x=>x.id));
+      document.querySelector(".note").textContent =
+        "Map loaded, but state IDs didn’t match expected patterns. Tell me one ID you see in the SVG and I’ll adjust instantly.";
+    }
   })
-  .catch(err => {
+  .catch(() => {
     document.getElementById("map").innerHTML =
-      "<p style='padding:12px;color:#b00'>Could not load us-states.svg. Make sure it is uploaded to the repo root as <b>us-states.svg</b>.</p>";
+      "<p style='padding:12px;color:#b00'>Could not load <b>us-states.svg</b>. Make sure it is uploaded to the repo root.</p>";
   });
 </script>
 </body>

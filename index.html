@@ -12,29 +12,104 @@
   .state{stroke:#fff;stroke-width:1;cursor:pointer}
   .state:hover{filter:brightness(1.08)}
   .note{text-align:center;color:#555;font-size:16px;margin:10px 0 18px}
+  .state-links{
+  max-width:1200px;
+  margin: 12px auto 18px;
+  background:#fff;
+  border-radius:10px;
+  padding:12px 10px 14px;
+  text-align:center;
+}
+.state-links-title{
+  font-size:14px;
+  color:#333;
+  margin-bottom:10px;
+  font-weight:800;
+}
+.state-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:54px;
+  height:42px;
+  margin:6px;
+  border:1px solid #e6e6e6;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:900;
+  letter-spacing:.5px;
+  color:#111;
+  background:#fafafa;
+  user-select:none;
+  -webkit-tap-highlight-color: transparent;
+}
+.state-link:hover{ background:#f0f0f0; }
+.state-link:active{ transform: translateY(1px); }
+.state-link-dc{ width:66px; }
+
 </style>
 </head>
 <body>
 <h1>Criminal illegal aliens Democrats are Protecting DHS Worst of the Worst</h1>
 <div class="map" id="map"></div>
-  <div class="state-links">
-  <strong>Select your state:</strong><br><br>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Alabama" target="_blank">AL</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Alaska" target="_blank">AK</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Arizona" target="_blank">AZ</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Arkansas" target="_blank">AR</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=California" target="_blank">CA</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Colorado" target="_blank">CO</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Connecticut" target="_blank">CT</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Delaware" target="_blank">DE</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Florida" target="_blank">FL</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Georgia" target="_blank">GA</a>
-  <br><br>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Texas" target="_blank">TX</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20York" target="_blank">NY</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Pennsylvania" target="_blank">PA</a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Ohio" target="_blank">OH</a>
+ <!-- STATE QUICK LINKS (ALL STATES + DC) -->
+<div class="state-links">
+  <div class="state-links-title">Quick links (tap your state):</div>
+
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Alabama">AL</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Alaska">AK</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Arizona">AZ</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Arkansas">AR</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=California">CA</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Colorado">CO</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Connecticut">CT</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Delaware">DE</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Florida">FL</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Georgia">GA</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Hawaii">HI</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Idaho">ID</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Illinois">IL</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Indiana">IN</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Iowa">IA</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Kansas">KS</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Kentucky">KY</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Louisiana">LA</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Maine">ME</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Maryland">MD</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Massachusetts">MA</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Michigan">MI</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Minnesota">MN</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Mississippi">MS</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Missouri">MO</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Montana">MT</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Nebraska">NE</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Nevada">NV</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20Hampshire">NH</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20Jersey">NJ</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20Mexico">NM</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20York">NY</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=North%20Carolina">NC</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=North%20Dakota">ND</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Ohio">OH</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Oklahoma">OK</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Oregon">OR</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Pennsylvania">PA</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Rhode%20Island">RI</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=South%20Carolina">SC</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=South%20Dakota">SD</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Tennessee">TN</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Texas">TX</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Utah">UT</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Vermont">VT</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Virginia">VA</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Washington">WA</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=West%20Virginia">WV</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Wisconsin">WI</a>
+  <a class="state-link" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Wyoming">WY</a>
+
+  <a class="state-link state-link-dc" target="_blank" href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=District%20of%20Columbia">DC</a>
 </div>
+
 <div class="note">Tap a state to open the official DHS WoW page filtered by that state (opens a new tab).</div>
 
 <script>

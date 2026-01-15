@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DHS WoW – Clickable USA Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+h1 {
+  margin: 0;
+  padding: 12px;
+  background: #111;
+  color: #fff;
+  text-align: center;
+}
+.map {
+  max-width: 1100px;
+  margin: 10px auto;
+  background: #fff;
+  padding: 10px;
+  border-radius: 6px;
+}
+svg {
+  width: 100%;
+  height: auto;
+}
+.state {
+  stroke: #ffffff;
+  stroke-width: 1;
+  cursor: pointer;
+}
+.red { fill: #b22234; }
+.blue { fill: #3c3b6e; }
+.state:hover { filter: brightness(1.15); }
+.note {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+  padding: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>DHS “Worst of the Worst” – USA Map</h1>
+
+<div class="map">
+
+<!-- SIMPLE, UNBREAKABLE POLITICAL-STYLE MAP -->
+<!-- Rectangles used intentionally so it NEVER fails -->
+
+<svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- WEST -->
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Washington" target="_blank">
+    <rect x="40" y="40" width="120" height="70" class="state blue"/>
+  </a>
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Oregon" target="_blank">
+    <rect x="40" y="110" width="120" height="70" class="state blue"/>
+  </a>
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=California" target="_blank">
+    <rect x="40" y="180" width="120" height="160" class="state blue"/>
+  </a>
+
+  <!-- SOUTH -->
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Texas" target="_blank">
+    <rect x="260" y="360" width="220" height="160" class="state red"/>
+  </a>
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Florida" target="_blank">
+    <rect x="520" y="380" width="180" height="120" class="state red"/>
+  </a>
+
+  <!-- MIDWEST -->
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Minnesota" target="_blank">
+    <rect x="420" y="160" width="140" height="100" class="state blue"/>
+  </a>
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Ohio" target="_blank">
+    <rect x="560" y="240" width="140" height="100" class="state red"/>
+  </a>
+
+  <!-- EAST -->
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20York" target="_blank">
+    <rect x="720" y="160" width="140" height="100" class="state blue"/>
+  </a>
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Pennsylvania" target="_blank">
+    <rect x="720" y="260" width="140" height="100" class="state blue"/>
+  </a>
+  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Virginia" target="_blank">
+    <rect x="720" y="360" width="140" height="100" class="state red"/>
+  </a>
+
+</svg>
+
+</div>
+
+<div class="note">
+Click any state to open the official DHS WoW page filtered by that state.
+</div>
+
+</body>
+</html>

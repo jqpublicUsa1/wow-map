@@ -1,201 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>DHS “Worst of the Worst” – USA Map</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DHS “Worst of the Worst” – USA Map (2024)</title>
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-}
-h1 {
-  margin: 0;
-  padding: 14px;
-  background: #111;
-  color: #fff;
-  text-align: center;
-}
-.map-wrap {
-  max-width: 1200px;
-  margin: 12px auto;
-  background: #fff;
-  padding: 10px;
-  border-radius: 6px;
-}
-.note {
-  text-align: center;
-  font-size: 13px;
-  color: #555;
-  padding: 8px;
-}
-object {
-  width: 100%;
-  height: 650px;
-  border: none;
-}
+  body{margin:0;font-family:Arial,sans-serif;background:#f4f4f4}
+  h1{margin:0;padding:14px;background:#111;color:#fff;text-align:center}
+  .map{max-width:1200px;margin:12px auto;background:#fff;padding:10px;border-radius:8px}
+  svg{width:100%;height:auto;display:block}
+  .state-shape{stroke:#fff;stroke-width:1;cursor:pointer}
+  .state-shape:hover{filter:brightness(1.08)}
 </style>
 </head>
-
 <body>
-
 <h1>DHS “Worst of the Worst” – USA Map (2024)</h1>
-
-<div class="map-wrap">
-  <object id="usMap"
-    type="image/svg+xml"
-    data="https://upload.wikimedia.org/wikipedia/commons/3/32/Blank_US_Map_(states_only).svg">
-  </object>
-</div>
-
-<div class="note">
-Click any state to open the official DHS WoW page filtered by that state.
-</div>
+<div class="map" id="map"></div>
 
 <script>
-const RED = [
+const RED = new Set([
   "AL","AK","AR","FL","ID","IN","IA","KS","KY","LA","MO","MS","MT","ND",
   "NE","OH","OK","SC","SD","TN","TX","UT","WV","WY"
-];
+]);
 
-const BLUE = [
+const BLUE = new Set([
   "AZ","CA","CO","CT","DE","GA","HI","IL","ME","MD","MA","MI","MN","NV",
   "NH","NJ","NM","NY","NC","OR","PA","RI","VT","VA","WA","WI","DC"
-];
+]);
 
-const BASE = "https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=";
+const STATE_NAME = {
+  AL:"Alabama", AK:"Alaska", AZ:"Arizona", AR:"Arkansas", CA:"California",
+  CO:"Colorado", CT:"Connecticut", DE:"Delaware", FL:"Florida", GA:"Georgia",
+  HI:"Hawaii", ID:"Idaho", IL:"Illinois", IN:"Indiana", IA:"Iowa",
+  KS:"Kansas", KY:"Kentucky", LA:"Louisiana", ME:"Maine", MD:"Maryland",
+  MA:"Massachusetts", MI:"Michigan", MN:"Minnesota", MS:"Mississippi", MO:"Missouri",
+  MT:"Montana", NE:"Nebraska", NV:"Nevada", NH:"New Hampshire", NJ:"New Jersey",
+  NM:"New Mexico", NY:"New York", NC:"North Carolina", ND:"North Dakota", OH:"Ohio",
+  OK:"Oklahoma", OR:"Oregon", PA:"Pennsylvania", RI:"Rhode Island", SC:"South Carolina",
+  SD:"South Dakota", TN:"Tennessee", TX:"Texas", UT:"Utah", VT:"Vermont",
+  VA:"Virginia", WA:"Washington", WV:"West Virginia", WI:"Wisconsin", WY:"Wyoming",
+  DC:"District of Columbia"
+};
 
-document.getElementById("usMap").addEventListener("load", function () {
-  const svg = this.contentDocument;
-  if (!svg) return;
+const DHS_BASE =
+  "https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=";
 
-  const states = svg.querySelectorAll("path");
-  states.forEach(path => {
-    const id = path.id?.toUpperCase();
-    if (!id) return;
+function colorFor(code){
+  if (RED.has(code)) return "#b22234";     // Republican red
+  if (BLUE.has(code)) return "#3c3b6e";    // Democrat blue
+  return "#d0d0d0";                        // neutral
+}
 
-    // Color by 2024 result
-    if (RED.includes(id)) path.style.fill = "#b22234";
-    else if (BLUE.includes(id)) path.style.fill = "#3c3b6e";
-    else path.style.fill = "#d0d0d0";
+fetch("./us-states.svg")
+  .then(r => r.text())
+  .then(svgText => {
+    document.getElementById("map").innerHTML = svgText;
 
-    path.style.cursor = "pointer";
-    path.style.stroke = "#ffffff";
-    path.style.strokeWidth = "1";
+    // Try common state selectors: paths, polygons, etc.
+    const svg = document.querySelector("#map svg");
+    const elems = svg.querySelectorAll("[id]");
 
-    path.addEventListener("click", () => {
-      window.open(BASE + id, "_blank", "noopener");
+    elems.forEach(el => {
+      const code = (el.id || "").toUpperCase().trim();
+      if (!STATE_NAME[code]) return;
+
+      el.classList.add("state-shape");
+      el.style.fill = colorFor(code);
+
+      el.addEventListener("click", () => {
+        const stateName = STATE_NAME[code];
+        window.open(DHS_BASE + encodeURIComponent(stateName), "_blank", "noopener");
+      });
     });
+  })
+  .catch(err => {
+    document.getElementById("map").innerHTML =
+      "<p style='padding:12px;color:#b00'>Could not load us-states.svg. Make sure it is uploaded to the repo root as <b>us-states.svg</b>.</p>";
   });
-});
 </script>
-
-</body>
-</html>
-      <path class="al" d="m 643,467.4 .4,-7.3 -.9,-1.2 -1.7,-.7 -2.5,-.5 -2.2,-.4 -1.3,-.5 -1.1,-.8 -1.3,-2.5 -.4,-1.7 -.4,-2.1 -.8,-1.9 -.5,-.8 -.9,-.7 -1.2,-.7 -1,-.8 -.9,-.9 -1,-1.5 -.4,-1.4 .1,-1.9 .4,-1.5 .8,-1.5 1.6,-2 1,-2 -.7,-3.2 .3,-1.7 2.8,-.4 1.6,-2.4 2.5,-5.8 1.8,-1.7 4.8,-.8 4.3,-2.2 2.4,1.4 2.9,2.4 1.8,3.2 1.7,2.6 1.4,1.7 .7,1.6 -1.3,2.2 .5,1.9 1.3,2.7 1.1,4.6 .7,7.8 .7,4.8 -.7,5.9 -.8,7.4 -.4,4.5 -7.9,.1 z"><title>Alabama</title></path>
-
-      <path class="ak" d="m 52.9,447.3 4.5,5.9 3.4,5.6 2.4,4.4 4.3,5.3 3.3,4.2 2.7,2.3 5.7,2.8 7.9,2.8 3.7,1.2 4.1,2.4 3.2,2 3.4,2.7 2.4,3.4 2.6,2.5 2.4,1.8 3,1.3 2.7,2.2 2.8,2.8 2,2.8 2.2,4.1 3.4,3.9 3.6,3.3 4.2,2.4 4.4,1.8 4.8,.5 5,-.6 4.5,-2 3.9,-2.8 4.1,-4.3 2.7,-2.5 3.4,-2.5 2.5,-2.4 1.7,-3.4 .9,-3.4 2.1,-3.5 4.1,-4.6 3.4,-3.9 4.9,-5.2 1.6,-2.7 1.6,-3.1 2.8,-4 2.3,-2.4 2.5,-2.3 3,-2.2 1.7,-2.3 -.5,-3.6 -3.4,-4.5 -4.1,-2.7 -4.8,-2 -4.5,-1.1 -5.2,.1 -4.4,1.1 -4.7,.9 -4.7,.2 -4.8,-.7 -3.9,-1.3 -4.2,-2.1 -3.7,-2.4 -3.7,-3.4 -2.2,-3.6 -1.9,-4.2 -1,-5.1 .6,-4.5 1.7,-4.5 .8,-3.9 -.9,-4.3 -3.3,-4 -4.5,-3.1 -4.5,-1.7 -5.2,-.4 -4.4,1 -4.5,1.2 -4.5,-.1 -4.2,-1.6 -3.6,-3.1 -2.3,-3.8 -1.2,-4.2 .1,-4.8 1.6,-4.5 3.1,-3.9 3.9,-2.9 4.1,-1.4 4.7,-.8 4.8,-.5 4.2,-1.6 3.7,-3.1 2.4,-3.8 1.2,-4.4 -.4,-4.7 -2,-4.1 -3.1,-3.1 -4,-2 -4.5,-.8 -5.3,-.4 -4.9,-1.5 -4,-3.2 -2.7,-4.2 -.7,-4.5 1.2,-4.4 2.8,-3.4 3.9,-2.5 4.8,-.8 4.9,.6 5.1,1.2 4.7,.1 4.1,-2.1 2.5,-3.7 .8,-4.5 -1.2,-4.5 -3.2,-3.6 -4.4,-2.2 -4.8,-.7 -5.1,0 -4.5,-1.2 -3.5,-2.9 -2.1,-4.1 -.2,-4.5 1.6,-4.2 3.2,-3.1 4.3,-1.8 4.8,-.4 5.1,.6 4.6,-.6 4,-2.4 2.5,-3.8 .8,-4.6 -1.1,-4.6 -3,-3.7 -4.2,-2.4 -4.9,-.8 -8.7,.6 -6.3,-.6 -5.8,-1.8 -5.2,-3.1 -3.7,-3.4 -4.3,-4.3 -2.7,-2.9 -3.1,-2.7 -3.5,-2.5 -4.4,-2 -4.9,-1.7 -5.1,-1.1 -5.6,-.4 -6.1,.1 -5.8,.6 -5.8,1 -5.5,1.2 -5.4,1.8 -4.9,2.1 -4.8,3 -3.9,3.2 -3,3.8 -2.2,4.7 -1.2,5.1 .2,5.5 1.1,5.3 2.3,4.8 3.1,4.3 4.2,3.4 5.1,2.6 5.9,1.4 6.2,-.1 6.1,-1.1 5.3,-1.6 5.3,-2 5.1,-1 5.6,.4 4.9,1.8 3.9,3.2 2.7,4.4 1.2,5.3 -.4,5.6 -2,5.1 -3.5,4.3 -4.7,3.2 -5.5,1.4 -5.8,-.2 -5.9,-1.1 -5.7,-1.4 -5.8,-1.4 -5.9,-.2 -5.3,1.9 -4.1,3.6 -2.6,5 -1,5.6 1,5.8 2.7,5 4,3.7 5.1,2 5.7,.4 6.1,-.7 5.7,-1.2 5.7,-1.1 5.6,-.2 5,1.8 4.2,3.6 2.5,5 1.1,5.6 -1.1,5.8 -2.7,5 -4,3.7 -5.1,2 -5.7,.4 -6.1,-.7 -5.7,-1.2 -5.7,-1.1 -5.6,-.2 -5,1.8 -4.2,3.6 -2.5,5 -1.1,5.6 z"><title>Alaska</title></path>
-
-      <!-- (SVG continues for all states… kept as-is to preserve the full map) -->
-
-      <circle class="cle dc" cx="801.6" cy="252.1" r="5"><title>District of Columbia</title></circle>
-
-      <path class="path" d="m 92,111 h 147 l 68,68 h 85 l 54,54 v 46"/>
-
-    </g>
-  </svg>
-</div>
-
-<script>
-(function(){
-  const BASE = "https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=";
-  const KEY  = "wowMapPartyColors_v1";
-
-  const app       = document.getElementById("app");
-  const modeLabel = document.getElementById("modeLabel");
-  const hintText  = document.getElementById("hintText");
-  const toggleBtn = document.getElementById("toggleMode");
-  const resetBtn  = document.getElementById("resetColors");
-
-  const shapes = Array.from(document.querySelectorAll("g.state > *"));
-
-  function encodeState(name){ return encodeURIComponent(name); }
-  function getStateName(el){
-    const t = el.querySelector("title");
-    return t ? t.textContent.trim() : "";
-  }
-  function loadColors(){
-    try { return JSON.parse(localStorage.getItem(KEY) || "{}"); }
-    catch(e){ return {}; }
-  }
-  function saveColors(map){ localStorage.setItem(KEY, JSON.stringify(map)); }
-
-  function applyColors(){
-    const map = loadColors();
-    shapes.forEach(el=>{
-      el.classList.remove("dem","rep","neutral");
-      const name = getStateName(el);
-      const v = map[name];
-      if(v==="dem") el.classList.add("dem");
-      else if(v==="rep") el.classList.add("rep");
-      else el.classList.add("neutral");
-    });
-  }
-
-  let paintMode = false;
-
-  function setMode(on){
-    paintMode = on;
-    if(paintMode){
-      app.classList.add("paint-mode");
-      modeLabel.textContent = "Paint (tap cycles colors)";
-      hintText.textContent  = "Paint mode: tap a state to cycle Neutral → Republican (red) → Democrat (blue). Colors save on this device.";
-      toggleBtn.textContent = "Switch to Open DHS Mode";
-    }else{
-      app.classList.remove("paint-mode");
-      modeLabel.textContent = "Open DHS";
-      hintText.textContent  = "Tap a state to open the official DHS WoW page filtered by that state (opens a new tab).";
-      toggleBtn.textContent = "Switch to Paint Mode";
-    }
-  }
-
-  function cycleColor(name){
-    const map = loadColors();
-    const cur = map[name] || "neutral";
-    const next = (cur==="neutral") ? "rep" : (cur==="rep") ? "dem" : "neutral";
-    if(next==="neutral") delete map[name];
-    else map[name]=next;
-    saveColors(map);
-    applyColors();
-  }
-
-  shapes.forEach(el=>{
-    el.addEventListener("click", (evt)=>{
-      const name = getStateName(el);
-      if(!name) return;
-
-      if(paintMode){
-        evt.preventDefault();
-        cycleColor(name);
-      }else{
-        const url = BASE + encodeState(name);
-        window.open(url, "_blank", "noopener");
-      }
-    });
-  });
-
-  toggleBtn.addEventListener("click", ()=>setMode(!paintMode));
-  resetBtn.addEventListener("click", ()=>{
-    localStorage.removeItem(KEY);
-    applyColors();
-  });
-
-  applyColors();
-  setMode(false);
-})();
-</script>
-
 </body>
 </html>

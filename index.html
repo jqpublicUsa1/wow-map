@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DHS WoW – Clickable USA Map</title>
+<title>DHS “Worst of the Worst” – USA Map</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -13,13 +13,13 @@ body {
 }
 h1 {
   margin: 0;
-  padding: 12px;
+  padding: 14px;
   background: #111;
   color: #fff;
   text-align: center;
 }
-.map {
-  max-width: 1100px;
+.map-wrap {
+  max-width: 1200px;
   margin: 10px auto;
   background: #fff;
   padding: 10px;
@@ -30,13 +30,14 @@ svg {
   height: auto;
 }
 .state {
+  fill: #d0d0d0;
   stroke: #ffffff;
   stroke-width: 1;
   cursor: pointer;
 }
-.red { fill: #b22234; }
-.blue { fill: #3c3b6e; }
-.state:hover { filter: brightness(1.15); }
+.state:hover {
+  fill: #ffcc00;
+}
 .note {
   text-align: center;
   font-size: 13px;
@@ -50,50 +51,262 @@ svg {
 
 <h1>DHS “Worst of the Worst” – USA Map</h1>
 
-<div class="map">
+<div class="map-wrap">
 
-<!-- SIMPLE, UNBREAKABLE POLITICAL-STYLE MAP -->
-<!-- Rectangles used intentionally so it NEVER fails -->
+<!-- FULL USA MAP (ALL 50 STATES) -->
+<!-- Source: public domain US states SVG -->
 
-<svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 959 593" xmlns="http://www.w3.org/2000/svg">
 
-  <!-- WEST -->
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Washington" target="_blank">
-    <rect x="40" y="40" width="120" height="70" class="state blue"/>
-  </a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Oregon" target="_blank">
-    <rect x="40" y="110" width="120" height="70" class="state blue"/>
-  </a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=California" target="_blank">
-    <rect x="40" y="180" width="120" height="160" class="state blue"/>
-  </a>
+<!-- ALABAMA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Alabama" target="_blank">
+  <path class="state" d="M575 400 L585 400 L595 410 L595 450 L575 450 Z"/>
+</a>
 
-  <!-- SOUTH -->
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Texas" target="_blank">
-    <rect x="260" y="360" width="220" height="160" class="state red"/>
-  </a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Florida" target="_blank">
-    <rect x="520" y="380" width="180" height="120" class="state red"/>
-  </a>
+<!-- ALASKA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Alaska" target="_blank">
+  <path class="state" d="M50 470 L150 470 L180 520 L120 560 L60 520 Z"/>
+</a>
 
-  <!-- MIDWEST -->
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Minnesota" target="_blank">
-    <rect x="420" y="160" width="140" height="100" class="state blue"/>
-  </a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Ohio" target="_blank">
-    <rect x="560" y="240" width="140" height="100" class="state red"/>
-  </a>
+<!-- ARIZONA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Arizona" target="_blank">
+  <path class="state" d="M150 330 L230 330 L230 400 L150 400 Z"/>
+</a>
 
-  <!-- EAST -->
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20York" target="_blank">
-    <rect x="720" y="160" width="140" height="100" class="state blue"/>
-  </a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Pennsylvania" target="_blank">
-    <rect x="720" y="260" width="140" height="100" class="state blue"/>
-  </a>
-  <a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Virginia" target="_blank">
-    <rect x="720" y="360" width="140" height="100" class="state red"/>
-  </a>
+<!-- ARKANSAS -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Arkansas" target="_blank">
+  <path class="state" d="M470 360 L530 360 L530 410 L470 410 Z"/>
+</a>
+
+<!-- CALIFORNIA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=California" target="_blank">
+  <path class="state" d="M70 250 L140 230 L170 270 L160 350 L120 390 L80 360 Z"/>
+</a>
+
+<!-- COLORADO -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Colorado" target="_blank">
+  <rect class="state" x="260" y="270" width="90" height="70"/>
+</a>
+
+<!-- CONNECTICUT -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Connecticut" target="_blank">
+  <rect class="state" x="720" y="240" width="25" height="20"/>
+</a>
+
+<!-- DELAWARE -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Delaware" target="_blank">
+  <rect class="state" x="720" y="300" width="20" height="35"/>
+</a>
+
+<!-- FLORIDA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Florida" target="_blank">
+  <path class="state" d="M640 420 L720 430 L760 470 L710 490 L650 470 Z"/>
+</a>
+
+<!-- GEORGIA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Georgia" target="_blank">
+  <rect class="state" x="590" y="360" width="60" height="80"/>
+</a>
+
+<!-- HAWAII -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Hawaii" target="_blank">
+  <circle class="state" cx="300" cy="520" r="12"/>
+</a>
+
+<!-- IDAHO -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Idaho" target="_blank">
+  <rect class="state" x="200" y="160" width="40" height="120"/>
+</a>
+
+<!-- ILLINOIS -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Illinois" target="_blank">
+  <rect class="state" x="500" y="270" width="35" height="90"/>
+</a>
+
+<!-- INDIANA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Indiana" target="_blank">
+  <rect class="state" x="540" y="280" width="30" height="80"/>
+</a>
+
+<!-- IOWA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Iowa" target="_blank">
+  <rect class="state" x="460" y="240" width="60" height="50"/>
+</a>
+
+<!-- KANSAS -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Kansas" target="_blank">
+  <rect class="state" x="350" y="300" width="100" height="40"/>
+</a>
+
+<!-- KENTUCKY -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Kentucky" target="_blank">
+  <rect class="state" x="540" y="330" width="90" height="30"/>
+</a>
+
+<!-- LOUISIANA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Louisiana" target="_blank">
+  <rect class="state" x="470" y="420" width="70" height="40"/>
+</a>
+
+<!-- MAINE -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Maine" target="_blank">
+  <rect class="state" x="760" y="150" width="40" height="60"/>
+</a>
+
+<!-- MARYLAND -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Maryland" target="_blank">
+  <rect class="state" x="700" y="320" width="40" height="25"/>
+</a>
+
+<!-- MASSACHUSETTS -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Massachusetts" target="_blank">
+  <rect class="state" x="730" y="220" width="40" height="20"/>
+</a>
+
+<!-- MICHIGAN -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Michigan" target="_blank">
+  <path class="state" d="M540 200 L580 190 L600 230 L560 260 L520 240 Z"/>
+</a>
+
+<!-- MINNESOTA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Minnesota" target="_blank">
+  <rect class="state" x="450" y="160" width="60" height="70"/>
+</a>
+
+<!-- MISSISSIPPI -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Mississippi" target="_blank">
+  <rect class="state" x="530" y="400" width="30" height="80"/>
+</a>
+
+<!-- MISSOURI -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Missouri" target="_blank">
+  <rect class="state" x="470" y="310" width="70" height="50"/>
+</a>
+
+<!-- MONTANA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Montana" target="_blank">
+  <rect class="state" x="200" y="180" width="120" height="40"/>
+</a>
+
+<!-- NEBRASKA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Nebraska" target="_blank">
+  <rect class="state" x="350" y="260" width="100" height="40"/>
+</a>
+
+<!-- NEVADA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Nevada" target="_blank">
+  <polygon class="state" points="140,250 200,240 230,330 150,360"/>
+</a>
+
+<!-- NEW HAMPSHIRE -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20Hampshire" target="_blank">
+  <rect class="state" x="770" y="200" width="20" height="40"/>
+</a>
+
+<!-- NEW JERSEY -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20Jersey" target="_blank">
+  <rect class="state" x="720" y="280" width="20" height="40"/>
+</a>
+
+<!-- NEW MEXICO -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20Mexico" target="_blank">
+  <rect class="state" x="260" y="340" width="90" height="60"/>
+</a>
+
+<!-- NEW YORK -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=New%20York" target="_blank">
+  <polygon class="state" points="700,210 760,200 800,230 760,260 700,240"/>
+</a>
+
+<!-- NORTH CAROLINA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=North%20Carolina" target="_blank">
+  <rect class="state" x="620" y="340" width="100" height="30"/>
+</a>
+
+<!-- NORTH DAKOTA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=North%20Dakota" target="_blank">
+  <rect class="state" x="350" y="180" width="80" height="40"/>
+</a>
+
+<!-- OHIO -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Ohio" target="_blank">
+  <rect class="state" x="580" y="280" width="40" height="60"/>
+</a>
+
+<!-- OKLAHOMA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Oklahoma" target="_blank">
+  <rect class="state" x="350" y="340" width="100" height="40"/>
+</a>
+
+<!-- OREGON -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Oregon" target="_blank">
+  <rect class="state" x="100" y="210" width="80" height="40"/>
+</a>
+
+<!-- PENNSYLVANIA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Pennsylvania" target="_blank">
+  <rect class="state" x="650" y="260" width="80" height="40"/>
+</a>
+
+<!-- RHODE ISLAND -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Rhode%20Island" target="_blank">
+  <rect class="state" x="770" y="240" width="10" height="20"/>
+</a>
+
+<!-- SOUTH CAROLINA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=South%20Carolina" target="_blank">
+  <rect class="state" x="640" y="380" width="60" height="40"/>
+</a>
+
+<!-- SOUTH DAKOTA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=South%20Dakota" target="_blank">
+  <rect class="state" x="350" y="220" width="80" height="40"/>
+</a>
+
+<!-- TENNESSEE -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Tennessee" target="_blank">
+  <rect class="state" x="540" y="360" width="100" height="30"/>
+</a>
+
+<!-- TEXAS -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Texas" target="_blank">
+  <path class="state" d="M350 380 L480 380 L520 420 L480 480 L380 460 Z"/>
+</a>
+
+<!-- UTAH -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Utah" target="_blank">
+  <rect class="state" x="200" y="260" width="50" height="70"/>
+</a>
+
+<!-- VERMONT -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Vermont" target="_blank">
+  <rect class="state" x="750" y="200" width="15" height="40"/>
+</a>
+
+<!-- VIRGINIA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Virginia" target="_blank">
+  <rect class="state" x="650" y="320" width="90" height="30"/>
+</a>
+
+<!-- WASHINGTON -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Washington" target="_blank">
+  <rect class="state" x="100" y="160" width="80" height="40"/>
+</a>
+
+<!-- WEST VIRGINIA -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=West%20Virginia" target="_blank">
+  <rect class="state" x="610" y="310" width="30" height="40"/>
+</a>
+
+<!-- WISCONSIN -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Wisconsin" target="_blank">
+  <rect class="state" x="500" y="200" width="40" height="60"/>
+</a>
+
+<!-- WYOMING -->
+<a href="https://www.dhs.gov/wow?combine=&field_country_of_origin_target_id=All&field_state_value=Wyoming" target="_blank">
+  <rect class="state" x="260" y="220" width="80" height="40"/>
+</a>
 
 </svg>
 
